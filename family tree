@@ -1,0 +1,10 @@
+female(siri).
+female(sneha).
+male(sai).
+male(raja).
+parent(siri,sai).
+parent(siri,raja).
+parent(sneha,sai).
+parent(sneha,raja).
+mother(X,Y):-parent(X,Y),female(X).
+father(X,Y):-parent(X,Y),male(X).
