@@ -1,0 +1,14 @@
+def bfs(graph, start, goal):
+    queue, visited = [start], {start}
+    while queue:
+        node = queue.pop(0)
+        if node == goal:
+            return True
+        for neighbor in graph.get(node, []):
+            if neighbor not in visited:
+                queue.append(neighbor)
+                visited.add(neighbor)
+    return False
+
+graph = {'A': ['B', 'C'], 'B': ['D', 'E'], 'C': ['F'], 'D': [], 'E': ['F'], 'F': []}
+print("Path found!" if bfs(graph, 'A', 'F') else "No path found.")
