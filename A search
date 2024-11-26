@@ -1,0 +1,19 @@
+import heapq
+def a_star(graph, start, goal, h):
+    open_set, g_scores, closed_set = [(h[start], start, [])], {start: 0}, set()
+    while open_set:
+        f, current, path = heapq.heappop(open_set)
+        if current in closed_set: continue
+        path = path + [current]
+        if current == goal: return path
+        closed_set.add(current)
+        for neighbor, cost in graph.get(current, []):
+            if neighbor in closed_set: continue
+            new_g_score = g_scores[current] + cost
+            if neighbor not in g_scores or new_g_score < g_scores[neighbor]:
+                g_scores[neighbor] = new_g_score
+                heapq.heappush(open_set, (new_g_score + h[neighbor], neighbor, path))
+    return None
+graph = {'A': [('B', 1), ('C', 4)], 'B': [('C', 2), ('D', 5)], 'C': [('D', 1)], 'D': [('E', 3)], 'E': []}
+h = {'A': 7, 'B': 6, 'C': 2, 'D': 1, 'E': 0}
+print("Path found:", a_star(graph, 'A', 'E', h))
